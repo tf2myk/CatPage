@@ -6,7 +6,7 @@ const searchcats = async (req, res) => {
   return new Promise((resolve) => {
     const params = {
       engine: "google_lens",
-      url: "https://i.imgur.com/HBrB8p0.png"
+      url: "https://cdn.discordapp.com/attachments/1139397747330527322/1139397815282434098/Horizontal.jpg"
     };
 
     const callback = function(data) {

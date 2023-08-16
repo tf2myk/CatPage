@@ -3,18 +3,6 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
-const SerpApi = require('google-search-results-nodejs');
-const search = new SerpApi.GoogleSearch("a45a008dfe93a8dbb1fd1f4d404720a2e57491f04284e5c854de0ed2ef3c5f8d");
-
-  const params = {
-    engine: "google_lens",
-    url: "https://i.imgur.com/HBrB8p0.png"
-  };
-
-  const callback = function(data) {
-    var apidata = data;
-    return apidata;
-  };
 
 // Define a route to serve the HTML page
 app.get('/', (req, res) => {
@@ -38,6 +26,12 @@ app.get('/testfile2.html', (req, res) => {
 
 });
 
+app.get('/chatgal', async(req, res) => {
+  res.sendFile(__dirname + '/public/chatgal.html');
+  
+  console.log("chatgal loaded");
+});
+
 
 
 app.get('/api/data', async(req, res) => {
@@ -48,7 +42,7 @@ app.get('/api/data', async(req, res) => {
 
 
 // Serve static files from the "public" directory
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
 
 
 

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <link rel="stylesheet" type="text/css" href="./chatgalstyle.css"/>
+  <!-- Head content as before -->
+</head>
+<body >
+
+  <nav class="navbar">
+    <div class="home-button">
+      <a href="/">Home</a>
+    </div>
+    <div class="selector">
+      <label for="view-selector">View: </label>
+      <select id="view-selector">
+        <option value="Ecotrade">Ecotrade</option>
+        <option value="Global">Global</option>
+      </select>
+    </div>
+  </nav>
+
+  <div class="layout-container">
+    <!-- Comparison Image Section -->
+    <div class="comparison-section">
+      <img src="https://cdn.discordapp.com/attachments/1139397747330527322/1139397815282434098/Horizontal.jpg" alt="Comparison Image">
+    </div>
+
+
+  <div class="gallery" id="gallery-container">
+    <!-- Gallery items will be added dynamically here -->
+  </div>
+
+  <script>
+    // JSON data representing gallery items (replace with your data)
+
+    window.onload = async function()
+    {
+
+        fetch('/api/data')
+        .then(response => response.json())
+        .then(data => {
+            //console.log('Received JSON data:', data);
+            //console.log(data);
+            const galleryContainer = document.getElementById('gallery-container');
+            for(let i = 0; i < 10; i++ )
+            {
+                //console.log(data.visual_matches[i].thumbnail);
+                //console.log(data.visual_matches[i].link);
+                //console.log(data.visual_matches[i].title);
+
+                const galleryItem = document.createElement('div');
+                galleryItem.className = 'gallery-item';
+
+                const thumbnailImage = document.createElement('img');
+                thumbnailImage.src = data.visual_matches[i].thumbnail;
+                thumbnailImage.alt = data.visual_matches[i].title;
+
+                const link = document.createElement('a');
+                link.href = data.visual_matches[i].link;
+                link.textContent = 'Visit';
+
+                galleryItem.appendChild(thumbnailImage);
+                galleryItem.appendChild(link);
+
+                galleryContainer.appendChild(galleryItem);
+
+            }
+            
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+
+        
+
+    }
+
+  </script>
+</body>
+</html>
