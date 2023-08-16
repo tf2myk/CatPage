@@ -7,21 +7,30 @@
 </head>
 <body>
 <div id="message"></div>
-<script> 
+<script>
+    var hold
     window.onload = async function()
     {
 
         fetch('/api/data')
         .then(response => response.json())
         .then(data => {
-            console.log('Received JSON data:', data);
+            //console.log('Received JSON data:', data);
+            //console.log(data);
+            for(let i = 0; i < 10; i++ )
+            {
+                console.log(data.visual_matches[i].thumbnail);
+                console.log(data.visual_matches[i].link);
+
+            }
+            
         })
         .catch(error => {
             console.error('Error fetching data:', error);
         });
-        //const response = await fetch('http://localhost:3000/api/data') // result from res.json(response)
+
         
-        //console.log(response.json());
+
     }
 </script>
 </body>
