@@ -44,28 +44,47 @@
         .then(data => {
             //console.log('Received JSON data:', data);
             //console.log(data);
+            console.log(data.visual_matches.length);
+            let arraysize = data.visual_matches.length;
+            let counter = 0;
             const galleryContainer = document.getElementById('gallery-container');
-            for(let i = 0; i < 10; i++ )
+            for(let i = 0; i < arraysize; i++ )
             {
+              
+              
                 //console.log(data.visual_matches[i].thumbnail);
                 //console.log(data.visual_matches[i].link);
                 //console.log(data.visual_matches[i].title);
+                link = data.visual_matches[i].link;
 
-                const galleryItem = document.createElement('div');
-                galleryItem.className = 'gallery-item';
+                if (counter > 10)
+                {
+                  break;
+                }
+                else if(link.includes('https://www.ecotradegroup.com/'))
+                {
+                  const galleryItem = document.createElement('div');
+                  galleryItem.className = 'gallery-item';
 
-                const thumbnailImage = document.createElement('img');
-                thumbnailImage.src = data.visual_matches[i].thumbnail;
-                thumbnailImage.alt = data.visual_matches[i].title;
+                  const thumbnailImage = document.createElement('img');
+                  thumbnailImage.src = data.visual_matches[i].thumbnail;
+                  thumbnailImage.alt = data.visual_matches[i].title;
 
-                const link = document.createElement('a');
-                link.href = data.visual_matches[i].link;
-                link.textContent = 'Visit';
+                  const link = document.createElement('a');
+                  link.href = data.visual_matches[i].link;
+                  link.textContent = 'Visit';
 
-                galleryItem.appendChild(thumbnailImage);
-                galleryItem.appendChild(link);
+                  galleryItem.appendChild(thumbnailImage);
+                  galleryItem.appendChild(link);
 
-                galleryContainer.appendChild(galleryItem);
+                  galleryContainer.appendChild(galleryItem);
+
+                  counter += 1;
+                }
+
+                
+
+                
 
             }
             
