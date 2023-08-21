@@ -26,11 +26,16 @@
   <p>Image Search & Scraper</p>
   <div class="buttons-con">
     <div class="action-link-wrap">
-      <a href="./chatgal.html" class="link-button">Upload</a>
+      <form id="upload-form">
+        <input type="file" name="image" accept="image/*" id="image-input">
+      </form> 
+      <div id="result"></div>
     </div>
   </div>
 </div>
+
 <!-- partial -->
+  <script src="indexscripts.js"></script>
   <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 </body>
 </html>

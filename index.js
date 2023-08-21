@@ -18,7 +18,7 @@ const upload = multer({ storage: storage });
 
 // Google Cloud Storage configuration
 const storageClient = new Storage({
-  keyFilename: 'keys\catkey.json', // Replace with your JSON key file path
+  keyFilename: 'keys/catkey.json', // Replace with your JSON key file path
 });
 
 const bucketName = 'cata_test_1';
@@ -36,7 +36,7 @@ app.post('/upload', upload.single('image'), async (req, res) => {
     const blobStream = blob.createWriteStream();
 
     blobStream.on('error', (err) => {
-      res.status(500).json({ error: 'Error uploading image' });
+      res.status(500).json({ error: 'Error uploading image on index.js' });
     });
 
     blobStream.on('finish', () => {

@@ -1,6 +1,8 @@
 //Search Cats Function Conntroller
+require('dotenv').config();
+const serpaAPIkeys = process.env.serpKEY;
 const SerpApi = require('google-search-results-nodejs');
-const search = new SerpApi.GoogleSearch("a45a008dfe93a8dbb1fd1f4d404720a2e57491f04284e5c854de0ed2ef3c5f8d");
+const search = new SerpApi.GoogleSearch(serpaAPIkeys);
 
 const searchcats = async (req, res) => {
   return new Promise((resolve) => {
