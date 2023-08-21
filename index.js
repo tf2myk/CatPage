@@ -1,7 +1,10 @@
 const searchcats = require('./searchcats.js')
 const express = require('express');;
 const app = express();
+app.use(express.json());
 const port = 3000;
+
+
 
 
 /// Image Uploading
@@ -84,8 +87,10 @@ app.get('/chatgal', async(req, res) => {
 
 
 
-app.get('/api/data', async(req, res) => {
-  const response = await searchcats();
+app.post('/api/data', async(req, res) => {
+  const receivedData = req.body.data;
+  console.log(receivedData);
+  const response = await searchcats(receivedData);
   //console.log(response);
   res.json(response);
 });

@@ -36,13 +36,21 @@
 
   <script>
     // JSON data representing gallery items (replace with your data)
+    
 
     window.onload = async function()
     {
+      const dataFromLocalStorage = sessionStorage.getItem('imageUrl');
 
-        fetch('/api/data')
-        .then(response => response.json())
-        .then(data => {
+          fetch('/api/data', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ data: dataFromLocalStorage }),
+          })
+          .then(response => response.json())
+          .then(data => {
             //console.log('Received JSON data:', data);
             //console.log(data);
             console.log(data.visual_matches.length);
@@ -51,18 +59,18 @@
             const galleryContainer = document.getElementById('gallery-container');
             for(let i = 0; i < arraysize; i++ )
             {
-              
-              
+            
                 //console.log(data.visual_matches[i].thumbnail);
-                //console.log(data.visual_matches[i].link);
-                //console.log(data.visual_matches[i].title);
+
                 link = data.visual_matches[i].link;
 
                 if (counter > 10)
                 {
                   break;
                 }
-                else if(link.includes('https://www.ecotradegroup.com/'))
+                //else if(link.includes('https://www.ecotradegroup.com/'))
+                else if(link.includes('http'))
+                //else if(link.includes('https://))
                 {
                   const galleryItem = document.createElement('div');
                   galleryItem.className = 'gallery-item';

@@ -4,11 +4,14 @@ const serpaAPIkeys = process.env.serpKEY;
 const SerpApi = require('google-search-results-nodejs');
 const search = new SerpApi.GoogleSearch(serpaAPIkeys);
 
+
+
+
 const searchcats = async (req, res) => {
   return new Promise((resolve) => {
     const params = {
       engine: "google_lens",
-      url: "https://cdn.discordapp.com/attachments/1139397747330527322/1139397815282434098/Horizontal.jpg"
+      url: req
     };
 
     const callback = function(data) {
