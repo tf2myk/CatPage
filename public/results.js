@@ -169,7 +169,7 @@ function appendChildrenToContainer(optionValue, contentContainer)
                 }
                 else
                 {
-                  console.log("Picker didnt select");
+                  console.log("No Selection");
                 }
 
   }

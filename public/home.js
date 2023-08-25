@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
           sessionStorage.setItem('imageUrl', imageUrl);
           
 
-          window.location.replace('/chatgal');
+          window.location.replace('/results');
         } else {
           resultDiv.textContent = 'Image upload failed. indexscript.js';
 
