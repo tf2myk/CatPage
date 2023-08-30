@@ -1,6 +1,6 @@
 
 
-let matches = [];
+let matches;
 let galleryContainer;
 let contentSelector;
 
@@ -10,9 +10,9 @@ document.addEventListener('DOMContentLoaded', () =>
     contentSelector = document.querySelector('select#view-selector');
     const galleryContainer = document.getElementById('gallery-container');
     // Listen for change event on the selector
+
     contentSelector.addEventListener('change', () => {
-      const selectedOption = contentSelector.value;
-      appendChildrenToContainer(selectedOption, galleryContainer);
+      grabber(matches);
     });
    
     //Grabbing the item from shared storage for the fetch
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () =>
         console.log("searched is not in local storage");
     }
 
-    // Logic for Searrching
+    // Logic for Searching
     const dataFromLocalStorage = sessionStorage.getItem('imageUrl');
 
           fetch('/api/data', {
@@ -42,51 +42,9 @@ document.addEventListener('DOMContentLoaded', () =>
           })
           .then(response => response.json())
           .then(data => {
-            //console.log('Received JSON data:', data);
-            //console.log(data);
-            matches = data.visual_matches;
-            console.log(data.visual_matches.length);
-            let arraysize = data.visual_matches.length;
-            let counter = 0;
-            const galleryContainer = document.getElementById('gallery-container');
-            for(let i = 0; i < arraysize; i++ )
-            {
             
-                //console.log(data.visual_matches[i].thumbnail);
-
-                link = data.visual_matches[i].link;
-
-                if (counter > 10)
-                {
-                  break;
-                }
-                //else if(link.includes('https://www.ecotradegroup.com/'))
-                else if(link.includes('http'))
-                {
-                  const galleryItem = document.createElement('div');
-                  galleryItem.className = 'gallery-item';
-
-                  const thumbnailImage = document.createElement('img');
-                  thumbnailImage.src = data.visual_matches[i].thumbnail;
-                  thumbnailImage.alt = data.visual_matches[i].title;
-
-                  const link = document.createElement('a');
-                  link.href = data.visual_matches[i].link;
-                  link.textContent = 'Visit';
-
-                  galleryItem.appendChild(thumbnailImage);
-                  galleryItem.appendChild(link);
-
-                  galleryContainer.appendChild(galleryItem);
-
-                  counter += 1;
-                }
-
-                
-
-                
-
-            }
+            matches = data;
+            grabber(matches);
             
         })
         .catch(error => {
@@ -96,94 +54,44 @@ document.addEventListener('DOMContentLoaded', () =>
 });
 
 
-
-function appendChildrenToContainer(optionValue, contentContainer) 
+function grabber(data)
 {
-  // Clear the container
-  let picker = "";
-  contentContainer.innerHTML = '';
-  console.log(optionValue);
-  if(optionValue == "None")
-  {
-    picker = "None";
-  }
+    const galleryContainer = document.getElementById('gallery-container');
+    galleryContainer.innerHTML = '';
+    let arraysize = data.visual_matches.length;
+    let counter = 0;
+    const option = contentSelector.value;
 
-  if(optionValue == "Ecotrade")
-  {
-    picker = "ecotrade";
-  }
+    for(let i = 0; i < arraysize; i++ )
+    {
 
-  // Loop and append children based on the optionValue
-  let counter = 0;
+      if (counter > 10)
+      {
+        break;
+      }
+      const galleryItem = document.createElement('div');
+      galleryItem.className = 'gallery-item';
 
-  for(let i = 0; i < matches.length; i++ )
-  {
+      const thumbnailImage = document.createElement('img');
+      thumbnailImage.src = data.visual_matches[i].thumbnail;
+      thumbnailImage.alt = data.visual_matches[i].title;
+      link = document.createElement('a');
+      link.href = data.visual_matches[i].link;
+      link.textContent = 'Visit';
+
+      galleryItem.appendChild(thumbnailImage);
+      galleryItem.appendChild(link);
 
 
-                link = matches[i].link;
+      if(option == "Ecotrade" && data.visual_matches[i].link.includes('ecotrade'))
+      {
+        galleryContainer.appendChild(galleryItem);   
+      }
+      else if(option == "None")
+      {
+        galleryContainer.appendChild(galleryItem);
+      }
+      counter += 1;
+    }
 
-                if (counter > 10)
-                {
-                  break;
-                }
-                else if(link.includes('ecotrade') && picker == "ecotrade")
-                {
-                  const galleryItem = document.createElement('div');
-                  galleryItem.className = 'gallery-item';
-
-                  const thumbnailImage = document.createElement('img');
-                  thumbnailImage.src = matches[i].thumbnail;
-                  thumbnailImage.alt = matches[i].title;
-
-                  const link = document.createElement('a');
-                  link.href = matches[i].link;
-                  link.textContent = 'Visit';
-
-                  galleryItem.appendChild(thumbnailImage);
-                  galleryItem.appendChild(link);
-
-                  contentContainer.appendChild(galleryItem);
-
-                  counter += 1;
-                }
-                else if(picker == "None")
-                {
-                  const galleryItem = document.createElement('div');
-                  galleryItem.className = 'gallery-item';
-
-                  const thumbnailImage = document.createElement('img');
-                  thumbnailImage.src = matches[i].thumbnail;
-                  thumbnailImage.alt = matches[i].title;
-
-                  const link = document.createElement('a');
-                  link.href = matches[i].link;
-                  link.textContent = 'Visit';
-
-                  galleryItem.appendChild(thumbnailImage);
-                  galleryItem.appendChild(link);
-
-                  contentContainer.appendChild(galleryItem);
-
-                  counter += 1;
-                  
-                }
-                else
-                {
-                  console.log("No Selection");
-                }
-
-  }
-  
 }
-
-function grabber(picker)
-{
-  
-}
-
-
-
-
-
-
-
