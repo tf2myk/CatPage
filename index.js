@@ -2,7 +2,7 @@ const searchcats = require('./searchcats.js')
 const express = require('express');;
 const app = express();
 app.use(express.json());
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 
 
@@ -86,6 +86,6 @@ app.use(express.static(__dirname + '/public'));
 
 // Start the Express server
 app.listen(port, () => {
-  console.log(`http://localhost:3000`);
+  console.log(`Server is listening on port ${port}`);
 });
 
