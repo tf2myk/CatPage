@@ -76,6 +76,7 @@ function grabber(data)
       thumbnailImage.src = data.visual_matches[i].thumbnail;
       thumbnailImage.alt = data.visual_matches[i].title;
       link = document.createElement('a');
+      link.target = "_blank";
       link.href = data.visual_matches[i].link;
       link.textContent = 'Visit';
 
