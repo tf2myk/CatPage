@@ -21,9 +21,13 @@ document.addEventListener('DOMContentLoaded', () => {
   
         if (response.ok) {
           const data = await response.json();
+          //console.log(data);
           resultDiv.textContent = 'Image uploaded successfully. Image URL: ' + data.imageUrl;
-          
-          const imageUrl = data.imageUrl;
+          var encodedObjectName = data.imageUrl.replace(/ /g, '%20');
+          console.log(encodedObjectName);
+          const imageUrl = encodedObjectName;
+          //console.log(`LINK TO BUCKET FROM RESPONSE: ${data.imageUrl}`)
+
           sessionStorage.setItem('imageUrl', imageUrl);
           
 

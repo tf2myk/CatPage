@@ -72,7 +72,9 @@ app.get('/results', (req, res) => {
 
 app.post('/api/data', async(req, res) => {
   const receivedData = req.body.data;
-  console.log(receivedData);
+  console.log(`Searching with ${receivedData}`);
+  //let cleaned = receivedData.replace(/\s/g, '%')
+  //console.log(` The cleaned link is: ${cleaned}`)
   const response = await searchcats(receivedData);
   //console.log(response);
   res.json(response);
